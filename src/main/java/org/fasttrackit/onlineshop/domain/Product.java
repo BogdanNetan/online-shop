@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Product {
 
-    // id se aplica doar a primul rand,nu la tot!
+    // id se aplica doar la primul rand,nu la tot!
     @Id
     private long id;
     @NotNull
