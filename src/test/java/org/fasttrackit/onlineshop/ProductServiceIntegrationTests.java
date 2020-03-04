@@ -1,8 +1,10 @@
 package org.fasttrackit.onlineshop;
 
 import org.fasttrackit.onlineshop.domain.Product;
+import org.fasttrackit.onlineshop.exception.ResourceNotFondException;
 import org.fasttrackit.onlineshop.service.ProductService;
 import org.fasttrackit.onlineshop.transfer.SaveProductRequest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,19 +24,10 @@ public class ProductServiceIntegrationTests {
 
     @Test
     void createProduct_whenValidRequest_thenProductisCreated() {
-        SaveProductRequest request = new SaveProductRequest();
-        request.setName("Phone");
-        request.setQantity(100);
-        request.setPrice(300.5);
-
-        Product product = productService.createProduct(request);
-
-        assertThat(product, notNullValue());
-        assertThat(product.getId(), greaterThan(0L));
-        assertThat(product.getName(), is(request.getName()));
-        assertThat(product.getQantity(), is(request.getQantity()));
-        assertThat(product.getPrice(), is(request.getPrice()));
+        createProduct();
     }
+
+
 
     @Test
     void createProduct_whenMissingName_thenExceptionisThrow() {
@@ -50,11 +43,42 @@ public class ProductServiceIntegrationTests {
             assertThat(e, notNullValue());
             assertThat("Unsexpected exception type." , e instanceof TransactionSystemException);
         }
+}
+    @Test
+    void getProduct_whenExistingProduct_thenReturnProduct () {
+        Product product = createProduct();
+        Product response = productService.getProduct(product.getId());
+
+        assertThat(response, notNullValue());
+        assertThat(response.getId(), is(product.getId()));
+        assertThat(response.getPrice(), is(product.getPrice()));
+        assertThat(response.getQantity(), is(product.getQantity()));
+        assertThat(response.getImageUrl(), is(product.getImageUrl()));
+        assertThat(response.getDescription(), is(product.getDescription()));
+
 
 
     }
+@Test
+    void getProduct_whenNonExistingProduct_thenThrowResourceNotFoundException() {
+    Assertions.assertThrows(ResourceNotFondException.class,()-> productService.getProduct(99999));
+    }
 
+    private Product createProduct() {
+        SaveProductRequest request = new SaveProductRequest();
+        request.setName("Phone");
+        request.setQantity(100);
+        request.setPrice(300.5);
 
+        Product product = productService.createProduct(request);
 
+        assertThat(product, notNullValue());
+        assertThat(product.getId(), greaterThan(0L));
+        assertThat(product.getName(), is(request.getName()));
+        assertThat(product.getQantity(), is(request.getQantity()));
+        assertThat(product.getPrice(), is(request.getPrice()));
 
+        return product;
+    }
 }
+
