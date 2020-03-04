@@ -90,7 +90,6 @@ public class ProductServiceIntegrationTests {
 }
 
 
-
     private Product createProduct() {
         SaveProductRequest request = new SaveProductRequest();
         request.setName("Phone");
