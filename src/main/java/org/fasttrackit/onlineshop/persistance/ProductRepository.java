@@ -18,6 +18,4 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     // or using native queries
     @Query(value = "SELECT * FROM product WHERE `name` LIKE ' %?0%'", nativeQuery = true)
     Page<Product> findByPartialName(String partialName, Pageable pageable);
-
-
 }
