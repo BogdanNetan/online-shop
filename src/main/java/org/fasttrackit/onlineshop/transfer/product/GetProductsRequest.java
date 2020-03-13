@@ -1,15 +1,15 @@
 package org.fasttrackit.onlineshop.transfer.product;
 
 public class GetProductsRequest {
-    private String partiaName;
+    private String partialName;
     private Integer minQuatity;
 
     public String getPartialName() {
-        return partiaName;
+        return partialName;
     }
 
     public void setPartiaName(String partiaName) {
-        this.partiaName = partiaName;
+        this.partialName = partiaName;
     }
 
     public Integer getMinQuatity() {
@@ -23,7 +23,7 @@ public class GetProductsRequest {
     @Override
     public String toString() {
         return "GetProductsRequest{" +
-                "partiaName='" + partiaName + '\'' +
+                "partiaName='" + partialName + '\'' +
                 ", minQuatity=" + minQuatity +
                 '}';
     }

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ProductRepository extends JpaRepository<Product,Long> {
 
-    Page<Product> findByNameContaining(String partiaName, Pageable pageable);
+    Page<Product> findByNameContaining(String partialName, Pageable pageable);
 
     Page<Product> findByNameContainingAndQuantityGreaterThanEqual(
             String partialName, int minQuantity, Pageable pageable);
