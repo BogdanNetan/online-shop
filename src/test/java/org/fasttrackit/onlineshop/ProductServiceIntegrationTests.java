@@ -52,7 +52,7 @@ public class ProductServiceIntegrationTests {
         assertThat(response, notNullValue());
         assertThat(response.getId(), is(product.getId()));
         assertThat(response.getPrice(), is(product.getPrice()));
-        assertThat(response.getQantity(), is(product.getQantity()));
+        assertThat(response.getQuantity(), is(product.getQuantity()));
         assertThat(response.getImageUrl(), is(product.getImageUrl()));
         assertThat(response.getDescription(), is(product.getDescription()));
     }
@@ -68,7 +68,7 @@ public class ProductServiceIntegrationTests {
         request.setName(product.getName() + "updated");
         request.setDescription(product.getDescription() + "updated");
         request.setPrice(product.getPrice() + 10);
-        request.setQantity(product.getQantity() + 10);
+        request.setQantity(product.getQuantity() + 10);
 
         Product updatedProduct = productService.updateProdct(product.getId(), request);
 
@@ -77,7 +77,7 @@ public class ProductServiceIntegrationTests {
         assertThat(updatedProduct.getName(), is(request.getName()));
         assertThat(updatedProduct.getDescription(), is(request.getDescription()));
         assertThat(updatedProduct.getPrice(), is(request.getPrice()));
-        assertThat(updatedProduct.getQantity(), is(request.getQantity()));
+        assertThat(updatedProduct.getQuantity(), is(request.getQantity()));
     }
 @Test
     void deteleProduct_whenExistingProduct_thenProductDoesNotExistAnyMore() {
@@ -101,7 +101,7 @@ public class ProductServiceIntegrationTests {
         assertThat(product, notNullValue());
         assertThat(product.getId(), greaterThan(0L));
         assertThat(product.getName(), is(request.getName()));
-        assertThat(product.getQantity(), is(request.getQantity()));
+        assertThat(product.getQuantity(), is(request.getQantity()));
         assertThat(product.getPrice(), is(request.getPrice()));
 
         return product;

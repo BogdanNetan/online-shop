@@ -2,7 +2,6 @@ package org.fasttrackit.onlineshop.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
@@ -19,7 +18,7 @@ public class Product {
     @NotNull
     private double price;
     @NotNull
-    private int qantity;
+    private int quantity;
     private String imageUrl;
 
     public long getId() {
@@ -54,12 +53,12 @@ public class Product {
         this.price = price;
     }
 
-    public int getQantity() {
-        return qantity;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQantity(int qantity) {
-        this.qantity = qantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getImageUrl() {
@@ -77,7 +76,7 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", qantity=" + qantity +
+                ", qantity=" + quantity +
                 ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
