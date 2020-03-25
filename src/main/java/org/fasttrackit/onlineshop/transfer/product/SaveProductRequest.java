@@ -10,7 +10,7 @@ public class SaveProductRequest {
     @NotNull
     private Double price;
     @NotNull
-    private Integer qantity;
+    private Integer quantity;
     private String imageUrl;
 
     public String getName() {
@@ -37,12 +37,12 @@ public class SaveProductRequest {
         this.price = price;
     }
 
-    public Integer getQantity() {
-        return qantity;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setQantity(Integer qantity) {
-        this.qantity = qantity;
+    public void setQuantity(Integer qantity) {
+        this.quantity = qantity;
     }
 
     public String getImageUrl() {
@@ -59,7 +59,7 @@ public class SaveProductRequest {
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", qantity=" + qantity +
+                ", qantity=" + quantity +
                 ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }

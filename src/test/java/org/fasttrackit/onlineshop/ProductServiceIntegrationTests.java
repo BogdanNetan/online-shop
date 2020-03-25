@@ -3,6 +3,7 @@ package org.fasttrackit.onlineshop;
 import org.fasttrackit.onlineshop.domain.Product;
 import org.fasttrackit.onlineshop.exception.ResourceNotFondException;
 import org.fasttrackit.onlineshop.service.ProductService;
+import org.fasttrackit.onlineshop.steps.ProductTestSteps;
 import org.fasttrackit.onlineshop.transfer.product.SaveProductRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,10 +22,12 @@ public class ProductServiceIntegrationTests {
     //field = instance variables
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ProductTestSteps productTestSteps;
 
     @Test
     void createProduct_whenValidRequest_thenProductisCreated() {
-        createProduct();
+        productTestSteps.createProduct();
     }
 
 
@@ -33,7 +36,7 @@ public class ProductServiceIntegrationTests {
     void createProduct_whenMissingName_thenExceptionisThrow() {
 
         SaveProductRequest request = new SaveProductRequest();
-        request.setQantity(100);
+        request.setQuantity(100);
         request.setPrice(300.5);
 
 
@@ -46,7 +49,7 @@ public class ProductServiceIntegrationTests {
 }
     @Test
     void getProduct_whenExistingProduct_thenReturnProduct () {
-        Product product = createProduct();
+        Product product = productTestSteps.createProduct();
         Product response = productService.getProduct(product.getId());
 
         assertThat(response, notNullValue());
@@ -62,13 +65,13 @@ public class ProductServiceIntegrationTests {
     }
 
     void updateProduct_whenValidRequest_thenReturnUpdatedProduct() {
-        Product product = createProduct();
+        Product product = productTestSteps.createProduct();
 
         SaveProductRequest request = new SaveProductRequest();
         request.setName(product.getName() + "updated");
         request.setDescription(product.getDescription() + "updated");
         request.setPrice(product.getPrice() + 10);
-        request.setQantity(product.getQuantity() + 10);
+        request.setQuantity(product.getQuantity() + 10);
 
         Product updatedProduct = productService.updateProdct(product.getId(), request);
 
@@ -77,36 +80,17 @@ public class ProductServiceIntegrationTests {
         assertThat(updatedProduct.getName(), is(request.getName()));
         assertThat(updatedProduct.getDescription(), is(request.getDescription()));
         assertThat(updatedProduct.getPrice(), is(request.getPrice()));
-        assertThat(updatedProduct.getQuantity(), is(request.getQantity()));
+        assertThat(updatedProduct.getQuantity(), is(request.getQuantity()));
     }
 @Test
     void deteleProduct_whenExistingProduct_thenProductDoesNotExistAnyMore() {
 
-    Product product = createProduct();
+    Product product = productTestSteps.createProduct();
 
     productService.deleteProduct(product.getId());
     Assertions.assertThrows(ResourceNotFondException.class, () -> productService.getProduct(product.getId()));
 
 }
-
-
-    private Product createProduct() {
-        SaveProductRequest request = new SaveProductRequest();
-        request.setName("Phone");
-        request.setQantity(100);
-        request.setPrice(300.5);
-
-        Product product = productService.createProduct(request);
-
-        assertThat(product, notNullValue());
-        assertThat(product.getId(), greaterThan(0L));
-        assertThat(product.getName(), is(request.getName()));
-        assertThat(product.getQuantity(), is(request.getQantity()));
-        assertThat(product.getPrice(), is(request.getPrice()));
-
-        return product;
-    }
-
 
 }
 
